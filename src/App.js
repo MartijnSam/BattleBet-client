@@ -33,7 +33,7 @@ function App() {
   const { loading, error, data } = useQuery(CHECK_TOKEN, { skip: !token });
 
   useEffect(() => {
-    if (!loading && !error) dispatch(getUserWithStoredToken(data));
+    if (!loading) dispatch(getUserWithStoredToken(data, error));
   }, [dispatch, loading, data, error]);
 
   return (
