@@ -13,15 +13,11 @@ import { getUserWithStoredToken } from "./store/user/actions";
 import { Jumbotron } from "react-bootstrap";
 import { useQuery } from "@apollo/react-hooks";
 import { CHECK_TOKEN } from "./store/user/gql";
+import TournamentsOverview from "./pages/Tournaments/TournamentsOverview";
 
 const Home = () => (
   <Jumbotron>
     <h1>Home</h1>
-  </Jumbotron>
-);
-const Other = () => (
-  <Jumbotron>
-    <h1>Other</h1>
   </Jumbotron>
 );
 
@@ -33,7 +29,7 @@ function App() {
   const { loading, error, data } = useQuery(CHECK_TOKEN, { skip: !token });
 
   useEffect(() => {
-    if (!loading && !error) dispatch(getUserWithStoredToken(data));
+    dispatch(getUserWithStoredToken(data, loading, error));
   }, [dispatch, loading, data, error]);
 
   return (
@@ -43,7 +39,7 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/other" component={Other} />
+        <Route path="/tournaments" component={TournamentsOverview} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>

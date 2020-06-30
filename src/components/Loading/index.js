@@ -1,13 +1,10 @@
 import React from "react";
-import Spinner from "react-bootstrap/Spinner";
-import "./spinner.css";
+import { Pane, Spinner } from "evergreen-ui";
 
 export default function Loading() {
   return (
-    <div className="loading_spinner">
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    </div>
+    <Pane>
+      <Spinner marginX="auto" marginY={120} size={50} />
+    </Pane>
   );
 }
