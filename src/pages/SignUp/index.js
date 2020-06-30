@@ -40,7 +40,7 @@ export default function SignUp() {
       <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
         <h1 className="mt-5 mb-5">Signup</h1>
         <Form.Group controlId="formBasicName">
-          <Form.Label>Choose a Username</Form.Label>
+          <Form.Label>Pick a Username</Form.Label>
           <Form.Control
             value={userName}
             onChange={(event) => setUserName(event.target.value)}

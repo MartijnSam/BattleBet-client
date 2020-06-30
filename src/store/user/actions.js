@@ -74,6 +74,7 @@ export const loginDis = (user) => {
 
 export const getUserWithStoredToken = (data, loading, error) => {
   return async (dispatch, getState) => {
+    if (error) dispatch(setMessage("danger", true, error.message));
     if (!data) return;
     if (loading) dispatch(appLoading());
     if (error) console.log(error);
