@@ -50,7 +50,14 @@ export const loginDis = (user) => {
     try {
       const response = await user;
       dispatch(loginSuccess(response.data.login));
-      dispatch(showMessageWithTimeout("success", false, "welcome back!", 1500));
+      dispatch(
+        showMessageWithTimeout(
+          "success",
+          false,
+          `Welcome back ${response.data.login.user.userName}`,
+          1500
+        )
+      );
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
@@ -65,11 +72,12 @@ export const loginDis = (user) => {
   };
 };
 
-export const getUserWithStoredToken = (data, error) => {
+export const getUserWithStoredToken = (data, loading, error) => {
   return async (dispatch, getState) => {
     if (error) dispatch(setMessage("danger", true, error.message));
     if (!data) return;
-    dispatch(appLoading());
+    if (loading) dispatch(appLoading());
+    if (error) console.log(error);
     const userdata = await data;
     try {
       dispatch(tokenStillValid(userdata.checkToken));
@@ -77,8 +85,10 @@ export const getUserWithStoredToken = (data, error) => {
     } catch (error) {
       if (error.response) {
         console.log(error.response.message);
+        dispatch(setMessage("danger", true, error.response.data.message));
       } else {
         console.log(error);
+        dispatch(setMessage("danger", true, error.message));
       }
       // if we get a 4xx or 5xx response,
       // get rid of the token by logging out
