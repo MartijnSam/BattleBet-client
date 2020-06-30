@@ -5,6 +5,7 @@ export const GET_TOURNAMENTS = gql`
     tournaments {
       name
       id
+      createdAt
       User {
         name
       }
