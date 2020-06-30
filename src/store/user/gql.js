@@ -22,3 +22,16 @@ export const CHECK_TOKEN = gql`
     }
   }
 `;
+
+export const SIGNUP = gql`
+  mutation signUp($name: String!, $email: String!, $password: String!) {
+    signup(name: $name, email: $email, password: $password) {
+      token
+      user {
+        id
+        email
+        name
+      }
+    }
+  }
+`;

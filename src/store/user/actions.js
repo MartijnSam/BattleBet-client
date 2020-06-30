@@ -1,5 +1,3 @@
-import { apiUrl } from "../../config/constants";
-import axios from "axios";
 import {
   appLoading,
   appDoneLoading,
@@ -25,17 +23,12 @@ const tokenStillValid = (userWithoutToken) => ({
 
 export const logOut = () => ({ type: LOG_OUT });
 
-export const signUp = (name, email, password) => {
+export const signUpDis = (user) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
-      const response = await axios.post(`${apiUrl}/signup`, {
-        name,
-        email,
-        password,
-      });
-
-      dispatch(loginSuccess(response.data));
+      const response = await user;
+      dispatch(loginSuccess(response.data.signup));
       dispatch(showMessageWithTimeout("success", true, "account created"));
       dispatch(appDoneLoading());
     } catch (error) {
@@ -74,10 +67,11 @@ export const loginDis = (user) => {
 
 export const getUserWithStoredToken = (data) => {
   return async (dispatch, getState) => {
+    if (!data) return;
     dispatch(appLoading());
-
+    const userdata = await data;
     try {
-      dispatch(tokenStillValid(data.checkToken));
+      dispatch(tokenStillValid(userdata.checkToken));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
