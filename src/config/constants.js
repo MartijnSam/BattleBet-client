@@ -6,3 +6,7 @@ export const DEFAULT_MESSAGE_TIMEOUT = 3000;
 export function formatDate(date) {
   return moment(date).format("HH:MM, MMMM Do YYYY");
 }
+
+export function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

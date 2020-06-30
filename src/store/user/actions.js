@@ -54,7 +54,7 @@ export const loginDis = (user) => {
         showMessageWithTimeout(
           "success",
           false,
-          `Welcome back ${response.data.login.user.name}`,
+          `Welcome back ${response.data.login.user.userName}`,
           1500
         )
       );

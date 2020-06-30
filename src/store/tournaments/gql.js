@@ -7,7 +7,16 @@ export const GET_TOURNAMENTS = gql`
       id
       createdAt
       User {
-        name
+        userName
+        avatar
+      }
+      PlayerGroup {
+        id
+        Users {
+          id
+          userName
+          avatar
+        }
       }
     }
   }

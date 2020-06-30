@@ -6,7 +6,7 @@ export const LOGIN = gql`
       token
       user {
         id
-        name
+        userName
         email
       }
     }
@@ -17,20 +17,22 @@ export const CHECK_TOKEN = gql`
   query CheckToken {
     checkToken {
       id
-      name
+      userName
       email
+      avatar
     }
   }
 `;
 
 export const SIGNUP = gql`
-  mutation signUp($name: String!, $email: String!, $password: String!) {
-    signup(name: $name, email: $email, password: $password) {
+  mutation signUp($userName: String!, $email: String!, $password: String!) {
+    signup(userName: $userName, email: $email, password: $password) {
       token
       user {
         id
         email
-        name
+        userName
+        avatar
       }
     }
   }

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectMessage } from "../../store/appState/selectors";
 import { Alert, Pane } from "evergreen-ui";
 import { clearMessage } from "../../store/appState/actions";
+import { capitalize } from "../../config/constants";
 
 export default function MessageBox() {
   const message = useSelector(selectMessage);
@@ -27,7 +28,7 @@ export default function MessageBox() {
         width="50%"
         float="right"
         intent={message.intent}
-        title={message.intent}
+        title={capitalize(message.intent)}
         isRemoveable={message.removable}
         onRemove={message.removable ? () => dispatch(clearMessage()) : null}
         children={message.text}

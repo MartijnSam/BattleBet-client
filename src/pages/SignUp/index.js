@@ -11,7 +11,7 @@ import { SIGNUP } from "../../store/user/gql";
 import { useMutation } from "@apollo/react-hooks";
 
 export default function SignUp() {
-  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -27,12 +27,12 @@ export default function SignUp() {
 
   function submitForm(event) {
     event.preventDefault();
-    const user = signUp({ variables: { name, email, password } });
+    const user = signUp({ variables: { userName, email, password } });
     dispatch(signUpDis(user));
 
     setEmail("");
     setPassword("");
-    setName("");
+    setUserName("");
   }
 
   return (
@@ -40,10 +40,10 @@ export default function SignUp() {
       <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
         <h1 className="mt-5 mb-5">Signup</h1>
         <Form.Group controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Choose a Username</Form.Label>
           <Form.Control
-            value={name}
-            onChange={(event) => setName(event.target.value)}
+            value={userName}
+            onChange={(event) => setUserName(event.target.value)}
             type="text"
             placeholder="Enter name"
             required

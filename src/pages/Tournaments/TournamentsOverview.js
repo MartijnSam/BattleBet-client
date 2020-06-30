@@ -5,6 +5,9 @@ import {
   Menu,
   TextDropdownButton,
   Position,
+  Pane,
+  Avatar,
+  Button,
 } from "evergreen-ui";
 import { useQuery } from "@apollo/react-hooks";
 import { useDispatch } from "react-redux";
@@ -52,7 +55,7 @@ export default function TournamentsOverview() {
   function filterData(data) {
     if (search === "") return data.tournaments;
     return data.tournaments.filter((tourn) => {
-      const result = filter([tourn.name], search);
+      const result = filter([tourn.userName], search);
       return result.length === 1;
     });
   }
@@ -96,8 +99,8 @@ export default function TournamentsOverview() {
     let key = "User";
     if (orderingColumn === 2) {
       return data.sort((a, b) => {
-        let aValue = a[key].name;
-        let bValue = b[key].name;
+        let aValue = a[key].userName;
+        let bValue = b[key].userName;
 
         const sortTable = { true: 1, false: -1 };
         // Order ascending (Order.ASC)
@@ -108,7 +111,22 @@ export default function TournamentsOverview() {
         return bValue === aValue ? 0 : sortTable[bValue > aValue];
       });
     }
-    if (orderingColumn === 3) key = "createdAt";
+    if (orderingColumn === 3) {
+      key = "PlayerGroup";
+      return data.sort((a, b) => {
+        let aValue = a[key].Users.length;
+        let bValue = b[key].Users.length;
+
+        const sortTable = { true: 1, false: -1 };
+        // Order ascending (Order.ASC)
+        if (ordering === Order.ASC) {
+          return aValue === bValue ? 0 : sortTable[aValue > bValue];
+        }
+        // Order descending (Order.DESC)
+        return bValue === aValue ? 0 : sortTable[bValue > aValue];
+      });
+    }
+    if (orderingColumn === 4) key = "createdAt";
     return data.sort((a, b) => {
       let aValue = a[key];
       let bValue = b[key];
@@ -123,7 +141,7 @@ export default function TournamentsOverview() {
     });
   }
 
-  let items = sortData(filterData(data));
+  let items = !data || data.length < 1 ? [] : sortData(filterData(data));
 
   return (
     <div>
@@ -136,17 +154,82 @@ export default function TournamentsOverview() {
             value={search}
           />
           {renderOrderedHeader("Created by", 2)}
-          {renderOrderedHeader("Created at", 3)}
+          {renderOrderedHeader("Number of players", 3)}
+          {renderOrderedHeader("Created at", 4)}
         </Table.Head>
         <Table.VirtualBody height={240}>
           {items.map((tournament) => (
-            <Table.Row
-              key={tournament.id}
-              isSelectable
-              onSelect={() => alert(tournament.name)}
-            >
-              <Table.TextCell>{tournament.name}</Table.TextCell>
-              <Table.TextCell>{tournament.User.name}</Table.TextCell>
+            <Table.Row key={tournament.id}>
+              <Table.TextCell
+                isSelectable
+                onSelect={() => alert(tournament.name)}
+              >
+                {tournament.name}
+              </Table.TextCell>
+              <Popover
+                position={Position.BOTTOM_LEFT}
+                content={
+                  <Pane
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    flexDirection="column"
+                    paddingX={40}
+                    paddingY={40}
+                  >
+                    <Pane
+                      display="flex"
+                      alignItems="center"
+                      flexDirection="row"
+                      paddingBottom={20}
+                    >
+                      <Avatar src={tournament.User.avatar} marginRight="1rem" />
+                      {tournament.User.userName}
+                    </Pane>
+                    <Button>View account</Button>
+                  </Pane>
+                }
+              >
+                <Table.TextCell isSelectable>
+                  {tournament.User.userName}
+                </Table.TextCell>
+              </Popover>
+              <Popover
+                position={Position.BOTTOM_LEFT}
+                content={
+                  <Pane
+                    display="flex"
+                    alignItems="left"
+                    justifyContent="center"
+                    flexDirection="column"
+                    paddingX={40}
+                    paddingY={40}
+                  >
+                    Players
+                    {tournament.PlayerGroup.Users.map((player) => (
+                      <Pane
+                        key={player.id}
+                        display="flex"
+                        alignItems="center"
+                        flexDirection="row"
+                        paddingTop="1rem"
+                      >
+                        <Avatar
+                          src={player.avatar}
+                          size={20}
+                          marginRight="1rem"
+                        />
+                        {player.userName}
+                      </Pane>
+                    ))}
+                  </Pane>
+                }
+              >
+                <Table.TextCell isSelectable>
+                  {tournament.PlayerGroup.Users.length} Players
+                </Table.TextCell>
+              </Popover>
+
               <Table.TextCell>
                 {formatDate(tournament.createdAt)}
               </Table.TextCell>

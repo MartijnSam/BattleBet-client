@@ -25,9 +25,7 @@ export default function SignUp() {
   }, [token, history]);
 
   async function submitForm(event) {
-    console.log("hi");
     event.preventDefault();
-
     const user = login({ variables: { email, password } });
     dispatch(loginDis(user));
     setEmail("");
