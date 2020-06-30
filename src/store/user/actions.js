@@ -1,27 +1,26 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
-import { selectToken } from "./selectors";
 import {
   appLoading,
   appDoneLoading,
   showMessageWithTimeout,
-  setMessage
+  setMessage,
 } from "../appState/actions";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 
-const loginSuccess = userWithToken => {
+const loginSuccess = (userWithToken) => {
   return {
     type: LOGIN_SUCCESS,
-    payload: userWithToken
+    payload: userWithToken,
   };
 };
 
-const tokenStillValid = userWithoutToken => ({
+const tokenStillValid = (userWithoutToken) => ({
   type: TOKEN_STILL_VALID,
-  payload: userWithoutToken
+  payload: userWithoutToken,
 });
 
 export const logOut = () => ({ type: LOG_OUT });
@@ -33,7 +32,7 @@ export const signUp = (name, email, password) => {
       const response = await axios.post(`${apiUrl}/signup`, {
         name,
         email,
-        password
+        password,
       });
 
       dispatch(loginSuccess(response.data));
@@ -52,16 +51,12 @@ export const signUp = (name, email, password) => {
   };
 };
 
-export const login = (email, password) => {
+export const loginDis = (user) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
-      const response = await axios.post(`${apiUrl}/login`, {
-        email,
-        password
-      });
-
-      dispatch(loginSuccess(response.data));
+      const response = await user;
+      dispatch(loginSuccess(response.data.login));
       dispatch(showMessageWithTimeout("success", false, "welcome back!", 1500));
       dispatch(appDoneLoading());
     } catch (error) {
@@ -77,24 +72,12 @@ export const login = (email, password) => {
   };
 };
 
-export const getUserWithStoredToken = () => {
+export const getUserWithStoredToken = (data) => {
   return async (dispatch, getState) => {
-    // get token from the state
-    const token = selectToken(getState());
-
-    // if we have no token, stop
-    if (token === null) return;
-
     dispatch(appLoading());
-    try {
-      // if we do have a token,
-      // check wether it is still valid or if it is expired
-      const response = await axios.get(`${apiUrl}/me`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
 
-      // token is still valid
-      dispatch(tokenStillValid(response.data));
+    try {
+      dispatch(tokenStillValid(data.checkToken));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {

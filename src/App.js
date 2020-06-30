@@ -7,11 +7,12 @@ import Loading from "./components/Loading";
 import MessageBox from "./components/MessageBox";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import { Jumbotron } from "react-bootstrap";
+import { useQuery } from "@apollo/react-hooks";
+import { CHECK_TOKEN } from "./store/user/gql";
 
 const Home = () => (
   <Jumbotron>
@@ -28,9 +29,12 @@ function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
 
+  const token = localStorage.getItem("token");
+  const { loading, error, data } = useQuery(CHECK_TOKEN, { skip: !token });
+
   useEffect(() => {
-    dispatch(getUserWithStoredToken());
-  }, [dispatch]);
+    if (!loading && !error) dispatch(getUserWithStoredToken(data));
+  }, [dispatch, loading, data, error]);
 
   return (
     <div className="App">
