@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../store/user/actions";
 import { selectUser } from "../../store/user/selectors";
-import Nav from "react-bootstrap/Nav";
 import { Avatar, Popover, Position, Menu, Button, Pane } from "evergreen-ui";
 
 export default function LoggedIn() {

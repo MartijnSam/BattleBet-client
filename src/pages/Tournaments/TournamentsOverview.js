@@ -55,7 +55,7 @@ export default function TournamentsOverview() {
   function filterData(data) {
     if (search === "") return data.tournaments;
     return data.tournaments.filter((tourn) => {
-      const result = filter([tourn.userName], search);
+      const result = filter([tourn.name], search);
       return result.length === 1;
     });
   }
@@ -144,9 +144,10 @@ export default function TournamentsOverview() {
   let items = !data || data.length < 1 ? [] : sortData(filterData(data));
 
   return (
-    <div>
-      {" "}
-      <h1>Tournaments</h1>
+    <Pane border marginTop="2rem" width="100%">
+      <Pane border>
+        <h1>Tournaments</h1>
+      </Pane>
       <Table>
         <Table.Head>
           <Table.SearchHeaderCell
@@ -160,12 +161,30 @@ export default function TournamentsOverview() {
         <Table.VirtualBody height={240}>
           {items.map((tournament) => (
             <Table.Row key={tournament.id}>
-              <Table.TextCell
-                isSelectable
-                onSelect={() => alert(tournament.name)}
+              <Popover
+                position={Position.BOTTOM_LEFT}
+                content={
+                  <Pane
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    flexDirection="column"
+                    paddingX={40}
+                    paddingY={40}
+                  >
+                    {tournament.name}
+                    <Button
+                      iconBefore="numbered-list"
+                      is="a"
+                      href={`/tournaments/${tournament.id}`}
+                    >
+                      View tournament
+                    </Button>
+                  </Pane>
+                }
               >
-                {tournament.name}
-              </Table.TextCell>
+                <Table.TextCell isSelectable>{tournament.name}</Table.TextCell>
+              </Popover>
               <Popover
                 position={Position.BOTTOM_LEFT}
                 content={
@@ -186,7 +205,7 @@ export default function TournamentsOverview() {
                       <Avatar src={tournament.User.avatar} marginRight="1rem" />
                       {tournament.User.userName}
                     </Pane>
-                    <Button>View account</Button>
+                    <Button iconBefore="user">View account</Button>
                   </Pane>
                 }
               >
@@ -237,6 +256,6 @@ export default function TournamentsOverview() {
           ))}
         </Table.VirtualBody>
       </Table>
-    </div>
+    </Pane>
   );
 }

@@ -12,7 +12,8 @@ import { getUserWithStoredToken } from "./store/user/actions";
 import { Jumbotron } from "react-bootstrap";
 import { useQuery } from "@apollo/react-hooks";
 import { CHECK_TOKEN } from "./store/user/gql";
-import TournamentsOverview from "./pages/Tournaments/TournamentsOverview";
+import Tournaments from "./pages/Tournaments/index";
+import TournamentDetails from "./pages/Tournaments/Tournament/TournamentDetails";
 
 const Home = () => (
   <Jumbotron>
@@ -38,7 +39,8 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/tournaments" component={TournamentsOverview} />
+        <Route exact path="/tournaments" component={Tournaments} />
+        <Route path="/tournaments/:id" component={TournamentDetails} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>
