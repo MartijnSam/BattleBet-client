@@ -46,3 +46,17 @@ export const joinTournamentDis = (loading, error, data) => {
     }
   };
 };
+
+export const createdTournament = (data) => {
+  return (dispatch, getState) => {
+    dispatch(appDoneLoading());
+    dispatch(
+      showMessageWithTimeout(
+        "success",
+        false,
+        `You've succesfully created tournament ${data.createTournament.name}`
+      )
+    );
+    dispatch(tournamentLoaded(data.createTournament));
+  };
+};

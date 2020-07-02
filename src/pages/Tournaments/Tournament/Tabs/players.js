@@ -1,7 +1,7 @@
 import React from "react";
 import { Pane, Avatar } from "evergreen-ui";
 
-export default function players(props) {
+export default function Players(props) {
   const { playergroup } = props;
   return (
     <Pane display="flex" flexDirection="column">

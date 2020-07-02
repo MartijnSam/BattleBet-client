@@ -145,10 +145,10 @@ export default function TournamentsOverview() {
 
   return (
     <Pane border marginTop="2rem" width="100%">
-      <Pane border>
+      <Pane border padding={20}>
         <h1>Tournaments</h1>
       </Pane>
-      <Table>
+      <Table width="80%" border marginLeft={20}>
         <Table.Head>
           <Table.SearchHeaderCell
             onChange={handleFilterChange}
@@ -158,7 +158,7 @@ export default function TournamentsOverview() {
           {renderOrderedHeader("Number of players", 3)}
           {renderOrderedHeader("Created at", 4)}
         </Table.Head>
-        <Table.VirtualBody height={240}>
+        <Table.VirtualBody height={400}>
           {items.map((tournament) => (
             <Table.Row key={tournament.id}>
               <Popover

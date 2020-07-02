@@ -26,11 +26,11 @@ export default function MessageBox() {
     >
       <Alert
         width="50%"
-        float="right"
+        margin="auto"
         intent={message.intent}
         title={capitalize(message.intent)}
-        isRemoveable={message.removable}
-        onRemove={message.removable ? () => dispatch(clearMessage()) : null}
+        isRemoveable
+        onRemove={() => dispatch(clearMessage())}
         children={message.text}
       />
     </Pane>

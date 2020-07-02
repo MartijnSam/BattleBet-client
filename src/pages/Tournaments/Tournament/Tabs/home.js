@@ -1,5 +1,5 @@
 import React from "react";
-import { Pane, Avatar, Button } from "evergreen-ui";
+import { Pane, Avatar, Button, Text } from "evergreen-ui";
 import { formatDate } from "../../../../config/constants";
 import { selectUser } from "../../../../store/user/selectors";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,15 +9,22 @@ import { useMutation } from "@apollo/react-hooks";
 import { setMessage } from "../../../../store/appState/actions";
 
 export default function TournamentHome(props) {
-  const { admin, createdAt, playergroup, id } = props;
+  const { admin, createdAt, playergroup, id, league } = props;
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const [joinTournament] = useMutation(JOIN_TOURNAMENT);
 
-  const renderDeleteButton =
+  const renderAdminControls =
     user.id !== admin.id ? null : (
-      <Pane>
-        <Button iconBefore="trash" marginTop="2rem">
+      <Pane border marginTop={20} padding={20}>
+        <h5>Admin Controls</h5>
+        <Button iconBefore="add" intent="success" margin="1rem">
+          Invite Players
+        </Button>
+        <Button iconBefore="build" intent="success" margin="1rem">
+          Start Tournament
+        </Button>
+        <Button iconBefore="trash" intent="danger" margin="1rem">
           Delete Tournament
         </Button>
       </Pane>
@@ -26,8 +33,10 @@ export default function TournamentHome(props) {
   const renderJoinButton = playergroup
     .map((pyr) => pyr.id)
     .includes(user.id) ? null : (
-    <Pane marginTop="2rem">
+    <Pane border marginTop={20} padding={20}>
       <Button
+        iconBefore="add"
+        intent="success"
         onClick={() => {
           handleJoin();
         }}
@@ -50,16 +59,26 @@ export default function TournamentHome(props) {
 
   return (
     <Pane display="flex" flexDirection="column">
-      <Pane border marginBottom="2rem">
+      <Pane
+        border
+        marginBottom="2rem"
+        padding={20}
+        display="flex"
+        flexDirection="column"
+      >
+        <Text>Tournament League: {league.name}</Text>
+        <Text>Created on: {formatDate(createdAt)}</Text>
+      </Pane>
+      <Pane border marginBottom="2rem" padding={20}>
         Tournament Admin
-        <Pane display="flex" flexDirection="row">
+        <Pane display="flex" flexDirection="row" margin={10}>
           <Avatar src={admin.avatar} marginRight="1rem" marginLeft="1rem" />
           {admin.userName}
         </Pane>
       </Pane>
-      <Pane>Created on: {formatDate(createdAt)}</Pane>
+
       {renderJoinButton}
-      {renderDeleteButton}
+      {renderAdminControls}
     </Pane>
   );
 }
