@@ -9,3 +9,9 @@ export const checkUserInTournament = (state) => {
 export const checkUserTournamentAdmin = (state) => {
   return state.tournaments.tournament.User.id === state.user.id;
 };
+
+export const findFixtureById = (id) => (state) => {
+  return state.tournaments.tournament.League.Fixtures.find(
+    (fix) => parseInt(fix.id) === parseInt(id)
+  );
+};

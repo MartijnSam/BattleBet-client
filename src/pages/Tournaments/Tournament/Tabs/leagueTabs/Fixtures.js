@@ -53,7 +53,7 @@ export default function Fixtures(props) {
                   <Pane display="flex" flexDirection="column">
                     <Strong>
                       {fix.FTScoreTeam1 === null ? 0 : fix.FTScoreTeam1} -{" "}
-                      {fix.FTScoreTeam1 === null ? 0 : fix.FTScoreTeam1}
+                      {fix.FTScoreTeam2 === null ? 0 : fix.FTScoreTeam2}
                     </Strong>
                   </Pane>
                 </Pane>

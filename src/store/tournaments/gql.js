@@ -75,6 +75,30 @@ export const GET_TOURNAMENT = gql`
           avatar
         }
       }
+      Rounds {
+        id
+        type
+        Matches {
+          scorePlayer1
+          scorePlayer2
+          id
+          FixtureId
+          player1User {
+            id
+            userName
+            avatar
+          }
+          player2User {
+            id
+            userName
+            avatar
+          }
+          winnerUser {
+            id
+          }
+          date
+        }
+      }
     }
   }
 `;
@@ -163,6 +187,14 @@ export const CREATE_TOURNAMENT = gql`
           avatar
         }
       }
+    }
+  }
+`;
+
+export const START_TOURNAMENT = gql`
+  mutation StartTournament($TournamentId: Int) {
+    startTournament(TournamentId: $TournamentId) {
+      name
     }
   }
 `;

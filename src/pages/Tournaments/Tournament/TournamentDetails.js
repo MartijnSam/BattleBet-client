@@ -11,6 +11,7 @@ import { capitalize } from "../../../config/constants";
 import TournamentHome from "./Tabs/home";
 import Players from "./Tabs/players";
 import League from "./Tabs/league";
+import Matches from "./Tabs/Matches";
 
 export default function TournamentDetails() {
   const [tab, setTab] = useState("home");
@@ -42,12 +43,13 @@ export default function TournamentDetails() {
             createdAt={tournament.createdAt}
             playergroup={tournament.PlayerGroup.Users}
             league={tournament.League}
+            started={tournament.Rounds.length < 1 ? false : true}
           />
         );
       case "players":
         return <Players playergroup={tournament.PlayerGroup.Users} />;
       case "matches":
-        return <>Matches</>;
+        return <Matches rounds={tournament.Rounds} />;
       case "league":
         return <League league={tournament.League} />;
       case "standings":
@@ -63,6 +65,7 @@ export default function TournamentDetails() {
         <h1>
           <strong>{tournament.name}</strong>
         </h1>
+        {tournament.Rounds.length < 1 ? null : <h4>Tournament has started</h4>}
       </Pane>
       <Pane>
         <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
