@@ -1,14 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { findFixtureById } from "../../../../../store/tournaments/selectors";
-import { Pane, Avatar, Heading, Text, Strong, Image } from "evergreen-ui";
+import {
+  Pane,
+  Avatar,
+  Heading,
+  Text,
+  Strong,
+  Image,
+  Button,
+} from "evergreen-ui";
 import { formatDate } from "../../../../../config/constants";
 
 export default function MatchListItem(props) {
   const { match } = props;
   const fixture = useSelector(findFixtureById(match.FixtureId));
 
-  console.log(fixture);
   return (
     <Pane
       border
@@ -37,6 +44,7 @@ export default function MatchListItem(props) {
           alignItems="center"
         >
           {" "}
+          <Text>{fixture.status} </Text>
           <Text>{formatDate(match.date)} </Text>
           <Pane display="flex" flexDirection="column">
             <Heading size={900}>
@@ -91,6 +99,9 @@ export default function MatchListItem(props) {
               <Strong>{fixture.awayTeam.name}</Strong>
             </Pane>
           </Pane>
+          <Button iconBefore="numbered-list" is="a" href={`/match/${match.id}`}>
+            View match
+          </Button>
         </Pane>
         <Pane
           display="flex"

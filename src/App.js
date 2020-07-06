@@ -14,10 +14,11 @@ import { useQuery } from "@apollo/react-hooks";
 import { CHECK_TOKEN } from "./store/user/gql";
 import Tournaments from "./pages/Tournaments/index";
 import TournamentDetails from "./pages/Tournaments/Tournament/TournamentDetails";
+import MatchDetails from "./pages/Matches/MatchDetails";
 
 const Home = () => (
   <Jumbotron>
-    <h1>Home</h1>
+    <h1>BattleBet!</h1>
   </Jumbotron>
 );
 
@@ -41,6 +42,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/tournaments" component={Tournaments} />
         <Route path="/tournaments/:id" component={TournamentDetails} />
+        <Route path="/match/:id" component={MatchDetails} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>

@@ -192,7 +192,7 @@ export const CREATE_TOURNAMENT = gql`
 `;
 
 export const START_TOURNAMENT = gql`
-  mutation StartTournament($TournamentId: Int) {
+  mutation StartTournament($TournamentId: ID!) {
     startTournament(TournamentId: $TournamentId) {
       name
     }
