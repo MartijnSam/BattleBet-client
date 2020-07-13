@@ -1,6 +1,12 @@
 import React from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { GET_MATCH, CALC_RESULTS } from "../../store/match/gql";
+import {
+  useQuery,
+  // useMutation
+} from "@apollo/react-hooks";
+import {
+  GET_MATCH,
+  // CALC_RESULTS
+} from "../../store/match/gql";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +21,7 @@ export default function MatchDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const [createResults] = useMutation(CALC_RESULTS);
+  // const [createResults] = useMutation(CALC_RESULTS);
   const { loading, error, data } = useQuery(GET_MATCH, {
     variables: { id: parseInt(id) },
   });
@@ -29,7 +35,7 @@ export default function MatchDetails() {
 
   const { match } = data;
   const { Fixture } = match;
-  console.log(match);
+  // console.log(match);
 
   // async function getResults() {
   //   try {
@@ -206,7 +212,7 @@ export default function MatchDetails() {
                 height={5}
                 background={
                   Fixture.status === "Finished"
-                    ? parseInt(Fixture.homeTeam.id) ==
+                    ? parseInt(Fixture.homeTeam.id) ===
                       parseInt(Fixture.winnerTeam.id)
                       ? "#C6F91F"
                       : "#F8403A"
@@ -250,7 +256,7 @@ export default function MatchDetails() {
                 height={5}
                 background={
                   Fixture.status === "Finished"
-                    ? parseInt(Fixture.awayTeam.id) ==
+                    ? parseInt(Fixture.awayTeam.id) ===
                       parseInt(Fixture.winnerTeam.id)
                       ? "#C6F91F"
                       : "#F8403A"

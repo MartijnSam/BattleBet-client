@@ -1,5 +1,5 @@
 import React from "react";
-import { Pane, Heading, Image, Strong, Text } from "evergreen-ui";
+import { Pane, Heading, Image, Strong } from "evergreen-ui";
 
 export default function Prediction(props) {
   const { prediction, Fixture } = props;

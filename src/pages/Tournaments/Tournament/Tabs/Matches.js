@@ -4,7 +4,7 @@ import MatchListItem from "./matchList/MatchListItem";
 
 export default function Matches(props) {
   const { rounds } = props;
-  console.log(rounds);
+  // console.log(rounds);
 
   return (
     <Pane display="flex" flexDirection="column">

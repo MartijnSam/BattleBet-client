@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../../components/Loading/index";
 import { GET_TOURNAMENT } from "../../../store/tournaments/gql";
 import { gotTournament } from "../../../store/tournaments/actions";
@@ -12,11 +12,14 @@ import TournamentHome from "./Tabs/home";
 import Players from "./Tabs/players";
 import League from "./Tabs/league";
 import Matches from "./Tabs/Matches";
+import { selectUser } from "../../../store/user/selectors";
+import AdminPanel from "./Tabs/AdminPanel";
 
 export default function TournamentDetails() {
   const [tab, setTab] = useState("home");
   const dispatch = useDispatch();
   const { id } = useParams();
+  const user = useSelector(selectUser);
 
   const { loading, error, data } = useQuery(GET_TOURNAMENT, {
     variables: { TournamentId: parseInt(id) },
@@ -32,6 +35,9 @@ export default function TournamentDetails() {
 
   let { tournament } = data;
   const tabs = ["home", "players", "matches", "standings", "league"];
+
+  if (parseInt(user.id) === parseInt(tournament.User.id))
+    tabs.push("admin panel");
 
   const renderContent = (item) => {
     switch (item) {
@@ -54,6 +60,14 @@ export default function TournamentDetails() {
         return <League league={tournament.League} />;
       case "standings":
         return <>Standings</>;
+      case "admin panel":
+        return (
+          <AdminPanel
+            id={id}
+            playergroup={tournament.PlayerGroup.Users}
+            started={tournament.Rounds.length < 1 ? false : true}
+          />
+        );
       default:
         break;
     }
