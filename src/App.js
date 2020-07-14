@@ -15,6 +15,7 @@ import { CHECK_TOKEN } from "./store/user/gql";
 import Tournaments from "./pages/Tournaments/index";
 import TournamentDetails from "./pages/Tournaments/Tournament/TournamentDetails";
 import MatchDetails from "./pages/Matches/MatchDetails";
+import MyTournaments from "./pages/MenuPages/MyTournaments";
 
 const Home = () => (
   <Jumbotron>
@@ -41,6 +42,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/tournaments" component={Tournaments} />
+        <Route exact path="/mytournaments" component={MyTournaments} />
         <Route path="/tournaments/:id" component={TournamentDetails} />
         <Route path="/match/:id" component={MatchDetails} />
         <Route path="/signup" component={SignUp} />

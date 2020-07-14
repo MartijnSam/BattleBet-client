@@ -198,3 +198,46 @@ export const START_TOURNAMENT = gql`
     }
   }
 `;
+
+export const MY_TOURNAMENTS = gql`
+  query MY_TOURNAMENTS {
+    myTournaments {
+      adminTournaments {
+        name
+        id
+        createdAt
+        User {
+          id
+          userName
+          avatar
+        }
+        PlayerGroup {
+          id
+          Users {
+            id
+            userName
+            avatar
+          }
+        }
+      }
+      playerTournaments {
+        name
+        id
+        createdAt
+        User {
+          id
+          userName
+          avatar
+        }
+        PlayerGroup {
+          id
+          Users {
+            id
+            userName
+            avatar
+          }
+        }
+      }
+    }
+  }
+`;
