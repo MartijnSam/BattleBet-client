@@ -24,6 +24,7 @@ Create your own BattleBet tournament and challenge your friends. Succesfully pre
 - React-Bootstrap
 - EvergreenUI
 - Apollo GraphQL
+- Two external APIs used
 
 ## Current features
 
