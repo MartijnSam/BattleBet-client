@@ -15,7 +15,7 @@ Create your own BattleBet tournament and challenge your friends. Succesfully pre
 
 ## Demo gif
 
-![](readme/demo.gif)
+![](src/readme/demo.gif)
 
 ## Technologies & Libraries used
 
