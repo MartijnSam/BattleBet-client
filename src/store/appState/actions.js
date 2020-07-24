@@ -9,25 +9,27 @@ export const appLoading = () => ({ type: APP_LOADING });
 export const appDoneLoading = () => ({ type: APP_DONE_LOADING });
 export const clearMessage = () => ({ type: CLEAR_MESSAGE });
 
-export const setMessage = (variant, dismissable, text) => {
+export const setMessage = (intent, removeable, text, title) => {
   return {
     type: SET_MESSAGE,
     payload: {
-      variant,
-      dismissable,
-      text
-    }
+      intent,
+      removeable,
+      text,
+      title,
+    },
   };
 };
 
 export const showMessageWithTimeout = (
-  variant,
-  dismissable,
+  intent,
+  removeable,
   text,
-  timeOutMilliSeconds
+  timeOutMilliSeconds,
+  title
 ) => {
-  return dispatch => {
-    dispatch(setMessage(variant, dismissable, text));
+  return (dispatch) => {
+    dispatch(setMessage(intent, removeable, text, title));
 
     const timeout = timeOutMilliSeconds || DEFAULT_MESSAGE_TIMEOUT;
 

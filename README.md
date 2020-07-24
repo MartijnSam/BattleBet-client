@@ -1,42 +1,54 @@
-# Frontend template
+# :soccer: BattleBet!
 
-This is a simple react/redux/jwt template to start a project quickly
+## A tournament football betting game. Make your BattleBet!
+
+Create your own BattleBet tournament and challenge your friends. Succesfully predict the score of football fixtures and become the champion!
 
 ## Table of contents:
 
-- **[Setup](#setup-how-to-use-this-template)**
-- **[Create React App docs](#cra-docs)**
+- **[Demo gif](##demo-gif)**
+- **[Technologies & Libraries used](#technologies-&-Libraries-used)**
+- **[Current features](#current-features)**
+- **[Future features](#future-features)**
+- **[Setup](#setup)**
+- **[Server Repo](#server-repo)**
 
-## SETUP How to use this template
+## Demo gif
 
-1. Create a new project based on this template using the `Use this template` button
+![](src/readme/demo.gif)
 
-![HOW_TO_USE](https://user-images.githubusercontent.com/20372832/77003323-70966180-695d-11ea-8abe-b362d57135f3.gif)
+## Technologies & Libraries used
 
-2. Clone the app
+- React
+- React-Redux
+- React-Bootstrap
+- EvergreenUI
+- Apollo GraphQL
+- Two external APIs used
 
-```
-git clone git@github.com:YOUR_GITHUB_NAME/YOUR_PROJECT_NAME.git
-```
+## Current features
 
-3. cd into your project
+- Account
+  - Signup & Login
+- Tournaments
+  - Create your own tournaments
+  - When you have enough players (currently 8) start the tournament
+- Matches
+  - Predict the score and winner of football fixtures
 
-```
-cd YOUR_PROJECT_NAME
-```
+## Future features
 
-4. install dependencies
+- Live match results
+- League style tournaments
+- Custom player avatars
 
-```
-npm install
-```
+## Setup
 
-5. Start development server with npm start
+- Clone the repository
+- Go to the project folder
+- Install npm modules
+- Launch the project
 
-```
-npm start
-```
+## Server-repo
 
-## CRA docs
-
-The normal Create React App docs can be found in [CRA_DOCS.md](./CRA_DOCS.md)
+#### Check out the [server](https://github.com/MartijnSam/BattleBet-server).

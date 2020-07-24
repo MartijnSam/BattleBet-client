@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import { login } from "../../store/user/actions";
+import { loginDis } from "../../store/user/actions";
 import { selectToken } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
+import { LOGIN } from "../../store/user/gql";
+import { useMutation } from "@apollo/react-hooks";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -14,6 +16,7 @@ export default function SignUp() {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const history = useHistory();
+  const [login] = useMutation(LOGIN);
 
   useEffect(() => {
     if (token !== null) {
@@ -21,12 +24,10 @@ export default function SignUp() {
     }
   }, [token, history]);
 
-  function submitForm(event) {
-    console.log("hi");
+  async function submitForm(event) {
     event.preventDefault();
-
-    dispatch(login(email, password));
-
+    const user = login({ variables: { email, password } });
+    dispatch(loginDis(user));
     setEmail("");
     setPassword("");
   }
@@ -39,7 +40,7 @@ export default function SignUp() {
           <Form.Label>Email address</Form.Label>
           <Form.Control
             value={email}
-            onChange={event => setEmail(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
             type="email"
             placeholder="Enter email"
             required
@@ -50,7 +51,7 @@ export default function SignUp() {
           <Form.Label>Password</Form.Label>
           <Form.Control
             value={password}
-            onChange={event => setPassword(event.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
             type="password"
             placeholder="Password"
             required
