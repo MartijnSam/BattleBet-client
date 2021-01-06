@@ -11,7 +11,7 @@
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "evergreen-ui": "^4.28.0",
     "fuzzaldrin-plus": "^0.6.0",
